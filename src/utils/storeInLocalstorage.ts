@@ -1,6 +1,6 @@
-import { TTodos } from "../types/todos";
+import { TTodosPayload } from "../types/todos";
 
-export const storeTodosInLocalStorage = (todos: TTodos): void => {
+export const storeTodosInLocalStorage = (todos: TTodosPayload): void => {
   try {
     const serializedTodos = JSON.stringify(todos);
     localStorage.setItem("todos", serializedTodos);

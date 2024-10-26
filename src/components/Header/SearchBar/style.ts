@@ -18,6 +18,10 @@ export const searchBar = {
   "& .MuiAutocomplete-inputRoot": {
     color: mainColors.darkBlue,
     background: mainColors.grey,
+    fontSize: '1.2rem'
+  },
+  "& .MuiFormLabel-root": {
+    fontSize: '1.2rem'
   },
   "& .MuiAutocomplete-listbox": {
     height: "200px",

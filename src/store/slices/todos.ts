@@ -5,6 +5,7 @@ const initialState: TTodos = {
   count: 0,
   id: 1,
   todos: [],
+  searchName: null
 };
 
 const todosSlice = createSlice({
@@ -57,6 +58,9 @@ const todosSlice = createSlice({
       state.count = action.payload.count;
       state.todos = action.payload.todos;
     },
+    setSearchName(state, action: PayloadAction<string | null>) {
+      state.searchName =  action.payload;
+    }
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setTodoStatus,
   setTodoContent,
   updateTodos,
+  setSearchName
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
