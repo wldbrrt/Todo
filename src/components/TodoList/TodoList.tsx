@@ -26,7 +26,7 @@ export const TodoList = () => {
     } else {
       setSearchResultTodos(todos)
     }
-  }, [searchName])
+  }, [searchName, todos])
 
   const filteredTodos = filterParam
     ? searchResultTodos.filter((todo) => {
