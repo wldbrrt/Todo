@@ -81,7 +81,7 @@ export const EditableInput = ({
             value={value}
             multiline={isExtenderEditor}
             onBlur={(e) => {
-              /* setIsInputActive(false) */
+               setIsInputActive(false)
             }}
             onChange={(e) => {
               setDescriptionValue(e.target.value);
@@ -97,7 +97,7 @@ export const EditableInput = ({
         <Box sx={inputWrapper}>
           <Typography
             onClick={(e) => {
-              /* setIsInputActive(true) */
+              setIsInputActive(true)
             }}
             sx={text}
           >

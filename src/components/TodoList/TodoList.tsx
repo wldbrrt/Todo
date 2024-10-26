@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { TODOLIST_NO_CONTENT } from "./TodoItem/constants";
 import { getFormatDate } from "../../utils/getFormatDate";
 import { TTodo } from "../../types/todos";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface IDateObj {
   [key: string]: TTodo[];
@@ -14,16 +14,26 @@ interface IDateObj {
 
 export const TodoList = () => {
   const [searchParams] = useSearchParams();
-  const { todos } = useTodos();
+  const { todos, searchName } = useTodos();
+  const [searchResultTodos, setSearchResultTodos] = useState(todos)
   const screenSize = useScreenSize();
   const filterParam = searchParams.get("filter");
 
+  useEffect(() => {
+    if(searchName) {
+      const result = todos.filter((todo) => todo.title === searchName)
+      setSearchResultTodos(result)
+    } else {
+      setSearchResultTodos(todos)
+    }
+  }, [searchName])
+
   const filteredTodos = filterParam
-    ? todos.filter((todo) => {
+    ? searchResultTodos.filter((todo) => {
         const filterTags = filterParam.split(",");
         return filterTags.every((tag) => todo.tags.includes(tag));
       })
-    : [...todos];
+    : [...searchResultTodos];
 
   const data = filteredTodos;
 
@@ -64,7 +74,7 @@ export const TodoList = () => {
                 isCompleted={todo.isCompleted}
                 id={todo.id}
                 tags={todo.tags}
-                date={todo.date}
+                date={new Date(todo.date)}
               />
             ))}
           </ React.Fragment>

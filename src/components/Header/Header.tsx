@@ -11,15 +11,16 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { EditorPopup } from "../EditorPopup/EditorPopup";
 import { useAppDispatch, useScreenSize, useTodos } from "../../store/hooks";
-import { addTodo } from "../../store/slices/todos";
+import { addTodo, setSearchName } from "../../store/slices/todos";
 import { storeTodosInLocalStorage } from "../../utils/storeInLocalstorage";
-import { SearchBar } from "./SearchBar/SearchBar";
+import { SearchBar, TSearchBarChangeHandler, TSearchBarOption } from "./SearchBar/SearchBar";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
   const [descriptionValue, setDescriptionValue] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<TSearchBarOption | null>(null)
   const screenSize = useScreenSize();
 
   const { id, todos, count } = useTodos();
@@ -37,7 +38,7 @@ export const Header = () => {
         content: descriptionValue,
         tags: tags,
         isCompleted: false,
-        date: new Date(),
+        date: new Date().valueOf(),
       })
     );
     setDescriptionValue("");
@@ -55,7 +56,15 @@ export const Header = () => {
     setIsModalOpen((value) => !value);
   };
 
+  const searchOptions = todos.map((item, ind) => ({label: item.title, id: item.id,}))
+
+  const searchOnChangeHandler: TSearchBarChangeHandler = (event, item ) => {
+    item ? dispatch(setSearchName(item.label)) : dispatch(setSearchName(null))
+    setSearchValue(item)
+  }
+
   return (
+    <>
     <Box sx={header(screenSize)}>
       <Box sx={titleWrapper}>
         <Typography sx={title}>{MAIN_TITLE}</Typography>
@@ -63,9 +72,10 @@ export const Header = () => {
           {ADD_BUTTON}
         </Button>
       </Box>
-      {/* <SearchBar />  */}
+      <SearchBar data={searchOptions} onChangeHandler={searchOnChangeHandler} value={searchValue}/>
       <FilterButtonsGroup tags={tagsArray} isFilter={true} />
-      {isModalOpen &&
+    </Box>
+    {isModalOpen &&
         createPortal(
           <EditorPopup
             title={POPUP_TITLE_CREATE}
@@ -81,6 +91,6 @@ export const Header = () => {
           />,
           document.body
         )}
-    </Box>
+    </>
   );
 };

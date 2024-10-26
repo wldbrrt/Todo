@@ -4,10 +4,17 @@ export type TTodo = {
   content: string;
   tags: string[];
   isCompleted: boolean;
-  date: Date;
+  date: number;
 };
 
 export type TTodos = {
+  count: number;
+  id: number;
+  searchName: string | null
+  todos: TTodo[];
+};
+
+export type TTodosPayload = {
   count: number;
   id: number;
   todos: TTodo[];
