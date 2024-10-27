@@ -14,6 +14,7 @@ import { useAppDispatch, useScreenSize, useTodos } from "../../store/hooks";
 import { addTodo, setSearchName } from "../../store/slices/todos";
 import { storeTodosInLocalStorage } from "../../utils/storeInLocalstorage";
 import { SearchBar, TSearchBarChangeHandler, TSearchBarOption } from "./SearchBar/SearchBar";
+import { FilterBar } from "./FilterBar/FilterBar";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -73,6 +74,7 @@ export const Header = () => {
         </Button>
       </Box>
       <SearchBar data={searchOptions} onChangeHandler={searchOnChangeHandler} value={searchValue}/>
+      <FilterBar/>
       <FilterButtonsGroup tags={tagsArray} isFilter={true} />
     </Box>
     {isModalOpen &&

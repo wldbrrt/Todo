@@ -1,11 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TTodo, TTodos } from "../../types/todos";
+import { TDateFilter, TFinishedFilter, TTodo, TTodos } from "../../types/todos";
 
 const initialState: TTodos = {
   count: 0,
   id: 1,
   todos: [],
-  searchName: null
+  searchName: null,
+  dateFilter: 'NEW_FIRST',
+  finishedFilter: 'UNFINISHED_FIRST'
 };
 
 const todosSlice = createSlice({
@@ -60,6 +62,12 @@ const todosSlice = createSlice({
     },
     setSearchName(state, action: PayloadAction<string | null>) {
       state.searchName =  action.payload;
+    },
+    setDateFilter(state, action: PayloadAction<TDateFilter>) {
+      state.dateFilter =  action.payload;
+    },
+    setFinishedFilter(state, action: PayloadAction<TFinishedFilter>) {
+      state.finishedFilter =  action.payload;
     }
   },
 });
@@ -70,7 +78,9 @@ export const {
   setTodoStatus,
   setTodoContent,
   updateTodos,
-  setSearchName
+  setSearchName,
+  setDateFilter,
+  setFinishedFilter
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

@@ -3,7 +3,7 @@ import { mainColors } from "../../ui/palette";
 export const todoList = (screen: string) => {
   const style = {
     width: "80%",
-    height: "75vh",
+    height: "70vh",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",

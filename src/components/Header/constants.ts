@@ -3,3 +3,7 @@ export const ADD_BUTTON = "ADD +";
 export const SEARCH_PLACEHOLDER = "Search by name";
 export const POPUP_TITLE_CREATE = "Add new note";
 export const POPUP_BUTTON_TITLE = "+";
+export const FILTER_DATE_OLD_FIRST = 'Old first'
+export const FILTER_DATE_NEW_FIRST = 'New first'
+export const FILTER_FINISHED_FIRST = 'Finished first'
+export const FILTER_UNFINISHED_FIRST = 'Unfinished first'
