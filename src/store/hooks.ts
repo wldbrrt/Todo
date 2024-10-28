@@ -7,13 +7,15 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useTodos = () => {
-  const { count, id, todos, searchName } = useAppSelector((state) => state.todos);
+  const { count, id, todos, searchName, dateFilter, finishedFilter } = useAppSelector((state) => state.todos);
 
   return {
     count,
     id,
     todos,
-    searchName
+    searchName,
+    dateFilter,
+    finishedFilter
   };
 };
 

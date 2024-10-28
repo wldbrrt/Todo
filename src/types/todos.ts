@@ -12,6 +12,8 @@ export type TTodos = {
   id: number;
   searchName: string | null
   todos: TTodo[];
+  dateFilter: TDateFilter,
+  finishedFilter: TFinishedFilter
 };
 
 export type TTodosPayload = {
@@ -19,3 +21,7 @@ export type TTodosPayload = {
   id: number;
   todos: TTodo[];
 };
+
+export type TDateFilter = 'NEW_FIRST' | 'OLD_FIRST'
+
+export type TFinishedFilter = 'SHOW_ALL' | 'SHOW_FINISHED' | 'SHOW_UNFINISHED'

@@ -7,6 +7,8 @@ import { TODOLIST_NO_CONTENT } from "./TodoItem/constants";
 import { getFormatDate } from "../../utils/getFormatDate";
 import { TTodo } from "../../types/todos";
 import React, { useEffect, useState } from "react";
+import { getSortedArray } from "../../utils/getSortedArray";
+import { getSortedByCompleteArray } from "../../utils/getSortedByCompleteArray";
 
 interface IDateObj {
   [key: string]: TTodo[];
@@ -14,26 +16,36 @@ interface IDateObj {
 
 export const TodoList = () => {
   const [searchParams] = useSearchParams();
-  const { todos, searchName } = useTodos();
-  const [searchResultTodos, setSearchResultTodos] = useState(todos)
+  const { todos, searchName, dateFilter, finishedFilter } = useTodos();
+  const [filtredTodos, setFiltredTodosTodos] = useState(todos)
+  const [filtredByIdTodos, setFiltredByIdTodos] = useState(filtredTodos)
+  const [filtredByCheckTodos, setFiltredByCheckTodos] = useState(filtredByIdTodos)
   const screenSize = useScreenSize();
   const filterParam = searchParams.get("filter");
 
   useEffect(() => {
     if(searchName) {
       const result = todos.filter((todo) => todo.title === searchName)
-      setSearchResultTodos(result)
+      setFiltredTodosTodos(result)
     } else {
-      setSearchResultTodos(todos)
+      setFiltredTodosTodos(todos)
     }
-  }, [searchName])
+  }, [searchName, todos])
+
+  useEffect(() => {
+    setFiltredByIdTodos(getSortedArray([...filtredTodos], dateFilter))
+  }, [dateFilter, filtredTodos])
+
+  useEffect(() => {
+    setFiltredByCheckTodos(getSortedByCompleteArray([...filtredByIdTodos], finishedFilter))
+  }, [finishedFilter, filtredByIdTodos])
 
   const filteredTodos = filterParam
-    ? searchResultTodos.filter((todo) => {
+    ? filtredByCheckTodos.filter((todo) => {
         const filterTags = filterParam.split(",");
         return filterTags.every((tag) => todo.tags.includes(tag));
       })
-    : [...searchResultTodos];
+    : [...filtredByCheckTodos];
 
   const data = filteredTodos;
 
@@ -54,7 +66,7 @@ export const TodoList = () => {
       {!data.length && (
         <Typography sx={noResulttitle}>{TODOLIST_NO_CONTENT}</Typography>
       )}
-      {filtredByDaysData.reverse().map((e) => {
+      {filtredByDaysData.map((e) => {
         const currentDate = getFormatDate(new Date().toISOString());
         const todoDate = getFormatDate(new Date(e[0].date).toISOString());
         const dateString = `${new Date(e[0].date).getDate()}/${
