@@ -22,6 +22,13 @@ export const SearchBar = ({data, onChangeHandler, value}: SearchBarProps) => {
       sx={searchBar}
       value={value}
       ListboxProps={{ style: popup }}
+      isOptionEqualToValue={((el, value) => {
+        if(el.id === value.id){
+          return true
+        } else {
+          return false
+        }
+      })}
       renderInput={(params) => (
         <TextField {...params} label={SEARCH_PLACEHOLDER} sx={searchOptions} />
       )}

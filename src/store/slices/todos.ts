@@ -7,7 +7,7 @@ const initialState: TTodos = {
   todos: [],
   searchName: null,
   dateFilter: 'NEW_FIRST',
-  finishedFilter: 'UNFINISHED_FIRST'
+  finishedFilter: 'SHOW_ALL'
 };
 
 const todosSlice = createSlice({

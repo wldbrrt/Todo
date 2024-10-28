@@ -24,4 +24,4 @@ export type TTodosPayload = {
 
 export type TDateFilter = 'NEW_FIRST' | 'OLD_FIRST'
 
-export type TFinishedFilter = 'UNFINISHED_FIRST' | 'FINISHED_FIRST'
+export type TFinishedFilter = 'SHOW_ALL' | 'SHOW_FINISHED' | 'SHOW_UNFINISHED'

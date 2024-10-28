@@ -1,15 +1,13 @@
 import { TFinishedFilter, TTodo } from "../types/todos";
 
 export const getSortedByCompleteArray = (todos: TTodo[], finishedFilter: TFinishedFilter) => {
-    let unfinishedFirst = false
-    if(finishedFilter === "UNFINISHED_FIRST") {
-        unfinishedFirst = true
-    } else {
-        unfinishedFirst = false
+    if(finishedFilter === 'SHOW_ALL'){
+        return todos
     }
-    return todos.sort((a, b) => {
-      return unfinishedFirst
-        ? Number(a.isCompleted) - Number(b.isCompleted)
-        : Number(b.isCompleted) - Number(a.isCompleted)
-    });
+    if(finishedFilter === 'SHOW_FINISHED') {
+        return todos.filter((el) => el.isCompleted === true)
+    } else {
+        return todos.filter((el) => el.isCompleted === false)
+    }
+
   };
